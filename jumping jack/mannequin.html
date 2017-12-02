@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="three.min.js"></script>
+		<script src="human.js"></script>
+	</head>
+
+	<body>
+		<h1>"Описание на действието"<br><small>ф.н. 99999 &ndash; група 9 &ndash; Име Фамилиев</small></h1>
+
+		<script>
+			// нагласяване на цвета и центрирането на текста с имената ви
+			document.getElementsByTagName('h1')[0].style = 'color:white; text-align:center; font-size:1.75em';
+
+			// рисувателно поле на цял екран
+			renderer = new THREE.WebGLRenderer({antialias:true});
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+			renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0; z-index:-1;';
+
+			// сцена и камера
+			scene = new THREE.Scene();
+			camera = new THREE.PerspectiveCamera( 30, window.innerWidth/window.innerHeight, 0.1, 2000 );
+			camera.position.set(0,3,220);
+
+			// светлини
+			var light = new THREE.DirectionalLight('lightblue',0.8);
+			light.position.set(0,1,4);
+			scene.add(light);
+			scene.add( new THREE.AmbientLight('white',0.4) );
+
+			// функция за анимиране на сцената
+			var t = 0; // време
+			function drawFrame()
+			{
+				requestAnimationFrame( drawFrame );
+				if (animate) animate(t++);
+				renderer.render( scene, camera );
+			}
+
+			colors[1] = "red"
+
+			мъж = мъжествен();
+			мъж.position.set(-20,-15,0)
+			мъж.врът(180,0,90)
+
+			мъж.тяло.врът(0,10,-10)
+			мъж.таз.врът(0,0,20)
+
+
+			мъж.д_ръка.врът(-90, -40, -90)
+			мъж.д_лакът.врът(0,0,0)
+			мъж.д_китка.врът(-90,-90,20)
+
+			мъж.л_ръка.врът(0, 0, -90)
+			мъж.л_китка.врът(0,-45, -80)
+
+			scene.rotateY(Math.PI/4);
+
+
+
+			// анимация на човечето
+			animate = function (t)
+			{
+				scene.rotateY(0.003);
+				//мъж.врат.врът(0,0,10*sin(5*t)-5);
+				//мъж.глава.врът(0,0,10*sin(5*t)-5);
+			}
+
+			drawFrame();
+		</script>
+	</body>
+</html>
