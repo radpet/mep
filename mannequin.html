@@ -1,71 +1,136 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
-	<head>
-		<script src="three.min.js"></script>
-		<script src="human.js"></script>
-	</head>
+<head>
+  <script src="three.min.js"></script>
+  <script src="human.js"></script>
+</head>
 
-	<body>
-		<h1>"Описание на действието"<br><small>ф.н. 99999 &ndash; група 9 &ndash; Име Фамилиев</small></h1>
+<body>
+  <h1>"Бях гладен"<br><small>ф.н. 81501 &ndash; група 2 &ndash; Радослав Петков</small></h1>
 
-		<script>
-			// нагласяване на цвета и центрирането на текста с имената ви
-			document.getElementsByTagName('h1')[0].style = 'color:white; text-align:center; font-size:1.75em';
+  <script>
+  // нагласяване на цвета и центрирането на текста с имената ви
+  document.getElementsByTagName('h1')[0].style = 'color:white; text-align:center; font-size:1.75em';
 
-			// рисувателно поле на цял екран
-			renderer = new THREE.WebGLRenderer({antialias:true});
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-			renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0; z-index:-1;';
+  // рисувателно поле на цял екран
+  renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  document.body.appendChild( renderer.domElement );
+  renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0; z-index:-1;';
 
-			// сцена и камера
-			scene = new THREE.Scene();
-			camera = new THREE.PerspectiveCamera( 30, window.innerWidth/window.innerHeight, 0.1, 2000 );
-			camera.position.set(0,3,150);
+  // сцена и камера
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera( 30, window.innerWidth/window.innerHeight, 0.1, 2000 );
+  camera.position.set(0,3,160);
 
-			// светлини
-			var light = new THREE.DirectionalLight('lightblue',0.8);
-			light.position.set(0,1,4);
-			scene.add(light);
-			scene.add( new THREE.AmbientLight('white',0.4) );
-
-
-			var t = 0; // време
-			function drawFrame()
-			{
-				requestAnimationFrame( drawFrame );
-				if (animate) animate(t++);
-				renderer.render( scene, camera );
-			}
+  // светлини
+  var light = new THREE.DirectionalLight('lightblue',1);
+  light.position.set(0,1,5);
+  scene.add(light);
+  scene.add( new THREE.AmbientLight('white',0.4) );
 
 
-			манекен = мъжествен();
-      colors[1] = 'red';
-			woman = женствен();
-			woman.position.set(30,2,0)
-			woman.врът(0,180,0)
-      woman.л_глезен.врът(0,0,30)
-      woman.д_глезен.врът(0,0,30)
+  var t = 0; // време
+  function drawFrame()
+  {
+    requestAnimationFrame( drawFrame );
+    if (animate) animate(t++);
+    renderer.render( scene, camera );
+  }
+
+  var initial_color = colors[4];
+
+  colors[4] = 'brown';
+  // маса
+  var table = формаКрайник([40,2,40,0,10,1,0.001,0.001]);
+  table.position.set(3,-12,-10);
+  scene.add(table);
+
+  var table_leg = формаКрайник([10,20,10,0,20,1,0.001,0.001]);
+  table_leg.position.set(3,-22,-10);
+  scene.add(table_leg);
+
+  colors[4] = 'lighgray';
+
+  // стол мъж
+  var chair_male = формаКрайник([16,10,16,0,270,1,0.2,0.001]);
+  chair_male.position.set(-20,-26,-10);
+  scene.add(chair_male);
+
+  var chair_male = формаКрайник([3,30,6,-90,270,1,0.5,0.001]);
+  chair_male.position.set(-28.0,-10,-10);
+  scene.add(chair_male);
+
+  // стол жена
+  var chair_woman = формаКрайник([16,10,16,0,20,1,0.001,0.001]);
+  chair_woman.position.set(30,-26,-10);
+  scene.add(chair_woman);
+
+  colors[4] = initial_color;
+  man = мъжествен();
+  man.position.set(0,0,-20);
+  man.д_крак.врът(0,30,0);
+  man.position.set(-21,-18,-10);
+  man.таз.врът(0,0,40);
+  man.тяло.врът(0,0,-45);
+  man.л_крак.врът(30,-25,-55);
+  man.л_коляно.врът(0,0,115);
+  man.л_глезен.врът(0,0,-15);
+  man.д_крак.врът(-30,25,-55);
+  man.д_коляно.врът(0,0,115);
+  man.д_глезен.врът(0,0,-15);
+
+  man.л_лакът.врът(0,0,-95);
+  man.л_китка.врът(0,0,0);
+
+  man.д_лакът.врът(0,0,-100);
+  man.д_китка.врът(-10,-30,0);
+
+  colors[1] = 'red'; // червените маратонки са стилни
+  woman = женствен();
+  woman.position.set(30,-19,-10)
+  woman.врът(0,180,0)
+  woman.глава.врът(0,0,-10);
+
+  woman.таз.врът(0,0,40);
+  woman.тяло.врът(0,0,-45);
+
+  woman.л_крак.врът(-20,15,-60);
+  woman.л_коляно.врът(0,0,100);
+  woman.л_глезен.врът(0,0,20);
 
 
-			animate = function (t)
-			{
-				// 1s е приблизително 60 frames
+  woman.л_ръка.врът(0,10,-35);
+  woman.л_лакът.врът(0,0,-65);
 
-				манекен.врат.врът(0,0,10*sin(5*t)-5);
-				манекен.глава.врът(0,0,10*sin(5*t)-5);
+  woman.д_ръка.врът(10,0,-55);
+  woman.д_лакът.врът(30,-45,-45);
+  woman.д_китка.врът(0,-45,0);
+
+  woman.д_крак.врът(17,-5,-75);
+  woman.д_коляно.врът(0,0,115);
+  woman.д_глезен.врът(0,0,-15);
 
 
-				woman.тяло.врът(0,40*sin(t),20);
-				woman.л_крак.врът(5+5*sin(t),-5,0);
-				woman.л_глезен.врът(0,-5*sin(t),25);
-				woman.д_крак.врът(-5+5*sin(t),-5,0);
-				woman.д_глезен.врът(0,-5*sin(t),25);
+  animate = function (t)
+  {
+    // 1s е приблизително 60 frames
+    scene.rotateY(0.003);
 
-			}
+    man.л_лакът.врът(0,0,-5*Math.abs(cos(1.2*t))-95); // контра ротация на тялото
 
-			drawFrame();
-		</script>
-	</body>
+    man.д_ръка.врът(-10,-10,-20)
+    man.д_лакът.врът(0,-20,50*Math.abs(sin(1.2*t))-150);
+    man.тяло.врът(0,0,-5*Math.abs(cos(1.2*t))-45);
+    man.д_китка.врът(-10*Math.abs(sin(1.2*t))+10, 0, 20*Math.abs(sin(1.2*t)) - 20);
+
+    woman.д_ръка.врът(-11*Math.abs(cos(1.5*t)) + 12,0,-55);
+    woman.д_лакът.врът(-23*Math.abs(cos(1.5*t))  + 25,-45,-50);
+    woman.д_китка.врът(0,-90,0);
+  }
+
+  drawFrame();
+  </script>
+</body>
 </html>

@@ -64,27 +64,15 @@ function формаОбувка(params)
 	var image = new THREE.Object3D();
 	image.add(parametricImage(texLimb,colors[1],function (u,v)
 	{
-		var r = cossers(u,v,[[0.6,1.1,0.05,0.95,1],[0.60,0.8,0.35,0.65,feminine?0.6:1000]]);
+		var r = cossers(u,v,[[0.6,1.1,0.05,0.95,1],[0.60,0.8,0.35,0.65,1000]]);
 		u = 360*u;
 		v = 180*v-90;
 		return new THREE.Vector3(
-			(3*r-2)*params[0]*(cos(u)*cos(v)+(feminine?(Math.pow(sin(u+180),2)*cos(v)-1):0)),
+			(3*r-2)*params[0]*(cos(u)*cos(v)),
 			params[1]*sin(u)*cos(v),
 			params[2]*sin(v));
 	}));
-	if (feminine)
-	{
-		image.add(parametricImage(texLimb,colors[4],function (u,v)
-		{
-			var r = cossers(u,v,[[0.6,1.1,0.05,0.95,1/2]]);
-			u = 360*u;
-			v = 180*v-90;
-			return new THREE.Vector3(
-				0.3*(3*r-2)*params[0]*(cos(u)*cos(v)),
-				0.8*params[1]*sin(u)*cos(v),
-				0.6*params[2]*sin(v));
-		}));
-	}
+
 
 	return image;
 }
